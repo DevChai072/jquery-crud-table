@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jquery</title>
+    <link rel="stylesheet" href="./myStyle.css">
+</head>
+<body>
+    <div class="container">
+        <!-- title -->
+        <div class="titleForm">
+            <h1>restaurant record form</h1>
+        </div>
+        <!-- end title -->
+
+        <!-- select type food -->
+        <div class="formBlock">
+            <label>Select Type : </label>
+            <select id="selectTypeFood"></select>
+        </div>
+        <!-- select type food -->
+
+        <!-- talble jquery -->
+        <table id="tableJquery">
+            <thead>
+                <tr>
+                    <th width="30%">Name</th>
+                    <th width="30%">Type</th>
+                    <th width="20%" colspan="3"></th>
+                </tr>
+            </thead>
+            <tbody id="dataContent"></tbody>
+        </table>
+        <!-- end talble jquery -->
+
+        <!-- button add new restaurant -->
+        <div class="formBlock">
+            <button id="btnAddNewRestaurant">Add New Restaurant</button>
+        </div>
+        <!-- end button add new restaurant -->
+
+        <div class="formBlock">
+            <div class="form-group">
+                <label>Name : </label>
+                <input type="hidden" id="txtInputIdHidden">
+                <input type="text" id="txtInputFoodName">
+            </div>
+            <div class="form-group">
+                <label>Type : </label>
+                <select id="selectInputTypeFood"></select>
+            </div>
+            <div class="form-group">
+                <label>Detail : </label><br>
+                <textarea id="txtInputDetail" cols="100" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+                <button id="btnSave" data="save">Save</button>
+                <button id="btnCancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./jquery-3.4.1.js"></script>
+    <script src="./Practice3Data.js"></script>
+    <script src="./myFunction.js"></script>
+    <script>
+        
+        $(document).ready(function() {
+
+            // prepare data put to dbMaster
+            prepareData();
+
+            // get data from dbMaster
+            var arrDataLUTResType = dbMaster.dataLUTResType;
+            var arrDataTblRestaurant = dbMaster.dataTblRestaurant;
+            // console.log(arrDataTblRestaurant)
+            // get choice put to element select
+            getSelectTypeFoodName(arrDataLUTResType);
+
+            // show all data in table
+            fetchAllDataToTable(arrDataTblRestaurant);
+
+            // event add new restaurant
+            $("#btnAddNewRestaurant").click(function() {
+                eventAddNewRestaurant(); // cleart form input
+            });
+
+            // event save data to table
+            $("#btnSave").click(function() {
+                prepareAction(arrDataTblRestaurant);
+            });
+
+            $("#btnCancel").click(function() {
+                eventAddNewRestaurant(); // cleart form input
+            });
+
+        });
+    </script>
+</body>
+</html>
