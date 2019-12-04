@@ -1,8 +1,0 @@
-{
-  "formsoul": {
-    "url": "http://github.com/sluu99/formsoul",
-    "lastVersion": "0.0.1",
-    "allVersions": ["0.0.1"],
-    "cdn": "http://cdn.sluu99.com/formsoul/formsoul-<version>.min.js"
-  }
-}
