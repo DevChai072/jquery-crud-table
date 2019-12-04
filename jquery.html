@@ -108,7 +108,7 @@
                 </div>
                 <div class="form-group">
                     <button id="btnSaveMenu" data="saveMenu">Save</button>
-                    <button id="btnCancel">Cancel</button>
+                    <button id="btnCancelMenu">Cancel</button>
                 </div>
             </div>
         </div>
@@ -118,7 +118,6 @@
     <script src="./Practice3Data.js"></script>
     <script src="./myFunction.js"></script>
     <script>
-        
         $(document).ready(function() {
             prepareData();
             if (Object.keys(dbMaster).length) {
@@ -126,6 +125,7 @@
                 // add data to tableJquery
                 btnAddNewForm(); // reset form input before add new data
                 saveData(); // click to {save} new data and {edit}
+                cancelData(); // click to {cancel}
             } else {
                 notFoundDataInTable();
             }

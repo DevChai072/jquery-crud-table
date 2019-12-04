@@ -58,16 +58,27 @@ function eachDataTblRestaurantToTable(dataTblRestaurant, findTypeId) {
         var restaurantType = val.restaurantType;
         var restaurantTypeName = val.restaurantTypeName;
         var syntaxRows = "<tr><td>" + name + "</td><td>" + restaurantTypeName + "</td><td><button class='btnAct' id='btnVm-"+ index +"' onclick='viewMenuToRows("+ index +")'>View Menu</button></td><td><button class='btnAct' id='btnEdit-"+ index +"' onclick='editToRows("+ index +")'>Edit</button></td><td><button class='btnAct' id='btnDel-"+ index +"' onclick='deleteToRows("+ index +")'>Delete</button></td></tr>";
-        if (findTypeId == restaurantType) {
-            $("#tableJquery tr:last").after(syntaxRows);
-            // set css for element in table
-            setCss();
-        } 
-        if (findTypeId === "all") {
+        
+        var isAddRow = (findTypeId === "all") || (findTypeId == restaurantType); // return true or false
+        if (isAddRow) { // is true
             $("#tableJquery tr:last").after(syntaxRows);
             // set css for element in table
             setCss();
         }
+        // if (findTypeId == restaurantType) {
+        //     $("#tableJquery tr:last").after(syntaxRows);
+        //     // set css for element in table
+        //     setCss();
+        // } else {
+        //     $("#tableJquery tr:last").after(syntaxRows);
+        //     // set css for element in table
+        //     setCss();
+        // }
+        // if (findTypeId === "all") {
+        //     $("#tableJquery tr:last").after(syntaxRows);
+        //     // set css for element in table
+        //     setCss();
+        // }
     });
 
     // display not found data on table
@@ -160,7 +171,7 @@ function saveData() {
             $("#selectTypeFood option[value='"+ findTypeId +"']").attr("selected", "selected");
 
             // clear value in form text input
-            deepClear();
+            deepCClear();
         }
     });
 
@@ -213,6 +224,26 @@ function saveData() {
             // clear value in form text input
             deepClear();
         }
+    });
+}
+
+/**
+ * function for cancel form input
+ * dev Somchai O00085
+ */
+function cancelData() {
+    $("#btnCancel").click(function() {
+        $("#txtInputFoodName").val("");
+        $("#txtInputFoodName").focus();
+        $("#selectInputTypeFood").prop("selectedIndex", 0);
+        $("#txtInputDetail").val("");
+    });
+
+    $("#btnCancelMenu").click(function() {
+        $("#txtInputMenuName").val("");
+        $("#txtInputMenuName").focus();
+        $("#selectInputMenuFood").prop("selectedIndex", 0);
+        $("#txtInputPrice").val("");
     });
 }
 
@@ -292,6 +323,7 @@ function deleteToRows(findIndex) { // foobar
 
         alert("ลบข้อมูลเรียบร้อย");
     }
+    notFoundDataInTable();
 }
 
 /**
@@ -303,7 +335,8 @@ function fetchIndexObject(arr) {
     var newArr = [];
     var count = 0;
     for (var i in arr) {
-        newArr[count++] = arr[i];
+        newArr.push(arr[i]);
+        // newArr[count++] = arr[i];
     }
     return newArr;
 }
@@ -578,7 +611,7 @@ function deleteVmToRows(findIndex) {
     if (confirmAlert == true) {
         // remove data from dbMaster {dataTblRestaurant}
         delete dbMaster.dataTblMenu[findIndex];
-
+        console.log(dbMaster.dataTblMenu)
         // fetch index in object array
         dbMaster.dataTblMenu = fetchIndexObject(dbMaster.dataTblMenu);
 
@@ -593,8 +626,8 @@ function deleteVmToRows(findIndex) {
 
         alert("ลบข้อมูลเรียบร้อย");
         deepClear();
-        notFoundDataInTableMenu();
     }
+    notFoundDataInTableMenu();
 }
 
 /**
